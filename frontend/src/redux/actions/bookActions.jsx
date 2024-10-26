@@ -23,7 +23,7 @@ export const getBooksData = (token) => async (dispatch, navigate) => {
   } catch (error) {
     console.error('Error fetching books', error);
     toast(error.response.data, "error");
-    if (error?.response?.data == "jwt expired") {
+    if (error?.response?.data === "jwt expired") {
       localStorage.removeItem("token");
       localStorage.removeItem("userDetails");
       navigate(SIGNIN);
@@ -106,15 +106,15 @@ export const registerUser = (user, navigate) => async (dispatch) => {
   }
 };
 
-export const loginUser = (credentials, navigate) => async (dispatch) => {
+export const loginUser = (credentials, navigate, rememberMe) => async (dispatch) => {
   try {
     const response = await axios.post(USER_LOGIN, credentials);
     if (response.data.success) {
       const responseData = response?.data?.data;
-      console.log("responseData ::", responseData);
       const user = JSON.stringify({ email: responseData?.email, username: responseData?.username });
       localStorage.setItem("token", responseData.token);
       localStorage.setItem("userDetails", user);
+      localStorage.setItem("rememberMe", JSON.stringify({ rememberMe: rememberMe, data: credentials }));
       toast(response.data.message, "success");
       navigate(BOOKLIST);
     } else {

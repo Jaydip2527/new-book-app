@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import HeaderComponent from "../Layout/header";
 import { BOOKLIST } from "../../routes";
 import { addBook, updateBook } from "../../redux/actions/bookActions";
-import defaultImage from "../../assets/noImg.jpeg";
 
 export default function BookForm() {
   const [loading, setLoading] = useState(false);
@@ -174,7 +173,7 @@ export default function BookForm() {
                     {imagePreview && (
                       <img
                         src={imagePreview}
-                        alt="Book Image"
+                        alt="Book"
                         className="img-fluid mt-3"
                         style={{ maxWidth: "200px" }}
                       />

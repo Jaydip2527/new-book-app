@@ -28,7 +28,7 @@ export default function BookList() {
     } finally {
       setLoading(false);
     }
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     getBooks();
@@ -39,7 +39,7 @@ export default function BookList() {
     if (!token) {
       navigate(SIGNIN);
     }
-  }, []);
+  }, [navigate]);
 
   const filteredData = useMemo(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -164,7 +164,7 @@ export default function BookList() {
                       ) : (
                         <img
                           src={defaultImage}
-                          alt="No Image"
+                          alt="No Data"
                           style={{ width: "100%", height: "60px" }}
                         />
                       )}
