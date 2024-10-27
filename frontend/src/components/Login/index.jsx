@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SIGNUP } from "../../routes";
 import { useForm } from "react-hook-form";
@@ -13,16 +13,27 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue: setvalue,
     formState: { errors },
     reset,
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkRememberMe = localStorage.getItem("rememberMe");
+    const data = JSON.parse(checkRememberMe);
+    if (data.rememberMe === true) {
+      setvalue("username", data.data.username);
+      setvalue("password", data.data.password);
+      setvalue("rememberMe", data.rememberMe);
+    }
+  }, [setvalue]);
+  
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await dispatch(loginUser(data, navigate));
+      await dispatch(loginUser(data, navigate, rememberMe));
       reset();
     } catch (error) {
       console.log("error ::", error);
@@ -55,6 +66,7 @@ const Login = () => {
                 <label>User Name</label>
                 <input
                   type="text"
+                  name="username"
                   className={`form-control ${
                     errors.username ? "is-invalid" : ""
                   }`}
@@ -83,6 +95,7 @@ const Login = () => {
                 <label>Password</label>
                 <input
                   type="password"
+                  name="password"
                   className={`form-control ${
                     errors.password ? "is-invalid" : ""
                   }`}
@@ -113,6 +126,8 @@ const Login = () => {
                   type="checkbox"
                   className="form-check-input"
                   id="rememberMe"
+                  name="rememberMe"
+                  defaultChecked={localStorage.getItem("rememberMe") === "true"}
                   {...register("rememberMe", { onChange: handleRememberMe })}
                 />
                 <label className="form-check-label" htmlFor="rememberMe">

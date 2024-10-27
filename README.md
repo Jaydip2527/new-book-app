@@ -62,3 +62,8 @@ A simple book management application built with React.js (frontend) and Node.js 
     ```
 
 5. Open your browser and navigate to `http://localhost:3000`.
+
+## Test Credentials
+
+- User name: Test
+- Password: test@123

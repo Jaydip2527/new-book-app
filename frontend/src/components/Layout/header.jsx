@@ -4,7 +4,6 @@ import { confirmToast, toast } from "../../utils/constant";
 import img from "../../assets/logo-jd2.png";
 
 function HeaderComponent(props) {
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const isLogin = localStorage.getItem("token");
@@ -47,8 +46,6 @@ function HeaderComponent(props) {
       </ul>
     </div>
   );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className="d-flex">
